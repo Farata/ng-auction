@@ -1,0 +1,40 @@
+@import '../../styles/theme';
+
+:host {
+  display: block;
+}
+
+.grid-list-container {
+  margin: 16px;
+}
+
+.tile {
+  background-color: mat-color($nga-background, card);
+
+  &:hover {
+    @include mat-elevation(2);
+    transition: .3s;
+  }
+}
+
+.tile__content {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.tile__thumbnail {
+  background: no-repeat 50% 50%;
+  background-size: contain;
+  height: 50%;
+  width: 50%;
+}
+
+.tile__title {
+  color: mat-color($nga-foreground, text);
+  font-family: 'Abril Fatface', cursive;
+  font-size: mat-font-size($nga-typography, display-1);
+  line-height: mat-line-height($nga-typography, display-1);
+}

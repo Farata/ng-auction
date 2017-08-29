@@ -1,3 +1,13 @@
-<p>
-  home works!
-</p>
+<div class="grid-list-container">
+  <md-grid-list [cols]="3" gutterSize="16">
+    <md-grid-tile class="tile" *ngFor="let product of products | async">
+      <a class="tile__content"
+         fxLayout="column"
+         fxLayoutAlign="center center"
+         [routerLink]="['/products', product.id]">
+        <div class="tile__thumbnail" [ngStyle]="{'background-image': 'url(' + product.imageUrl + ')'}"></div>
+        <div class="tile__title">{{ product.title }}</div>
+      </a>
+    </md-grid-tile>
+  </md-grid-list>
+</div>

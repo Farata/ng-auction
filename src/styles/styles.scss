@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:600');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 @import './theme';
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -27,7 +28,7 @@ html {
 
 body {
   color: #212121;
-  background-color: #fafafa;
+  background-color: #f3f3f3;
   font-family: mat-font-family($nga-typography);
   line-height: mat-line-height($nga-typography, body-1);
   font-size: mat-font-size($nga-typography, body-1);
