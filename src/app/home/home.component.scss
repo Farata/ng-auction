@@ -39,3 +39,13 @@
   font-size: mat-font-size($nga-typography, display-1);
   line-height: mat-line-height($nga-typography, display-1);
 }
+
+.tile__title--sm {
+  font-size: mat-font-size($nga-typography, headline);
+  line-height: mat-line-height($nga-typography, headline);
+}
+
+.tile__title--xs {
+  font-size: mat-font-size($nga-typography, title);
+  line-height: mat-line-height($nga-typography, title);
+}

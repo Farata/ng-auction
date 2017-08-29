@@ -5,8 +5,13 @@
          fxLayout="column"
          fxLayoutAlign="center center"
          [routerLink]="['/products', product.id]">
-        <div class="tile__thumbnail" [ngStyle]="{'background-image': 'url(' + product.imageUrl + ')'}"></div>
-        <div class="tile__title">{{ product.title }}</div>
+
+        <div class="tile__thumbnail"
+             [ngStyle]="{'background-image': 'url(' + product.imageUrl + ')'}"></div>
+
+        <div class="tile__title"
+             ngClass.xs="tile__title--xs"
+             ngClass.sm="tile__title--sm">{{ product.title }}</div>
       </a>
     </md-grid-tile>
   </md-grid-list>
