@@ -12,7 +12,7 @@
   background-color: mat-color($nga-background, card);
 
   &:hover {
-    @include mat-elevation(2);
+    @include mat-elevation(4);
     transition: .3s;
   }
 }
