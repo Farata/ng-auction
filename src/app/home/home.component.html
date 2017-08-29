@@ -1,6 +1,6 @@
 <div class="grid-list-container">
-  <md-grid-list [cols]="columns | async" gutterSize="16">
-    <md-grid-tile class="tile" *ngFor="let product of products | async">
+  <md-grid-list [cols]="columns$ | async" gutterSize="16">
+    <md-grid-tile class="tile" *ngFor="let product of products$ | async">
       <a class="tile__content"
          fxLayout="column"
          fxLayoutAlign="center center"
