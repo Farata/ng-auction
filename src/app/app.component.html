@@ -1,15 +1,28 @@
 <md-toolbar class="toolbar">
-  <a routerLink="/" fxLayout>
-    <img class="toolbar__logo"
-          src="/assets/logo.svg"
-          alt="NgAuction Logo">
-  </a>
+  <button class="toolbar__icon-button" md-icon-button>
+    <md-icon>menu</md-icon>
+  </button>
 
-  <span class="toolbar__title">NgAuction</span>
+  <div class="toolbar__logo-title-group"
+       fxLayout
+       fxLayoutAlign="center center">
+    <a routerLink="/" fxLayout>
+      <img class="toolbar__logo"
+            src="/assets/logo.svg"
+            alt="NgAuction Logo">
+    </a>
+    <a class="toolbar__title" routerLink="/">NgAuction</a>
+  </div>
 
   <div fxFlex></div>
 
-  <button class="toolbar__search-button" md-icon-button>
+  <button md-icon-button
+          class="toolbar__icon-button
+                 toolbar__shopping-cart-button">
+    <md-icon>shopping_cart</md-icon>
+  </button>
+
+  <button class="toolbar__icon-button" md-icon-button>
     <md-icon>search</md-icon>
   </button>
 </md-toolbar>
