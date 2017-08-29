@@ -6,6 +6,11 @@
          fxLayoutAlign="center center"
          [routerLink]="['/products', product.id]">
 
+        <span class="title__price-tag"
+              ngClass.xs="title__price-tag--xs">
+          {{ product.price | currency:'USD':true:'.0' }}
+        </span>
+
         <div class="tile__thumbnail"
              [ngStyle]="{'background-image': 'url(' + product.imageUrl + ')'}"></div>
 

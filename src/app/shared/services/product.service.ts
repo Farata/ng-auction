@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 export interface Product {
   id: number;
   title: string;
+  price: number;
 }
 
 @Injectable()
