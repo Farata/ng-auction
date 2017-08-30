@@ -4,19 +4,24 @@
   display: block;
 }
 
-.page-container {
+.wrapper {
   background-color: mat-color($nga-background, card);
   padding: 64px 24px;
+  height: 100%;
 }
 
-.page-container--lt-md {
+.wrapper--lt-md {
   padding: 32px 16px;
+}
+
+.wrapper--gt-md {
+  padding: 128px 24px;
 }
 
 .thumbnail {
   display: block;
   margin: 0 auto;
-  max-width: 40vmin;
+  max-width: 30vmin;
 }
 
 .info {

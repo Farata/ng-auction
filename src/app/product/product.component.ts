@@ -13,6 +13,7 @@ import { Product, ProductService } from '../shared/services';
 })
 export class ProductComponent {
   product$: Observable<Product>;
+  suggestedProducts$: Observable<Product[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,5 +23,7 @@ export class ProductComponent {
       .map(params => parseInt(params.get('productId') || '', 10))
       .filter(productId => !!productId)
       .switchMap(productId => this.productService.getById(productId));
+
+    this.suggestedProducts$ = this.productService.getAll();
   }
 }
