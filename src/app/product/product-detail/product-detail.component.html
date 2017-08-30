@@ -1,0 +1,34 @@
+<div class="page-container"
+     ngClass.lt-md="page-container--lt-md"
+     fxLayout="row"
+     fxLayout.xs="column"
+     fxLayoutAlign="center center">
+
+  <div fxFlex="50%">
+    <img class="thumbnail"
+         [attr.alt]="product.title"
+         [attr.src]="product.imageUrl">
+  </div>
+
+  <div fxFlex="50%">
+    <div class="info">
+      <h1 class="info__title">{{ product?.title }}</h1>
+      <div class="info__description">{{ product?.description }}</div>
+      <div class="info__bid">
+        <span>
+          <span class="info__bid-value"
+                ngClass.lt-md="info__bid-value--lt-md">{{ product?.price | currency:'USD':true:'.0' }}</span>
+          <span class="info__bid-value-decimal"
+                ngClass.lt-md="info__bid-value-decimal--lt-md">.00</span>
+        </span>
+        <span class="info__bid-label">LAST BID</span>
+      </div>
+
+      <button class="info__bid-button"
+              md-raised-button
+              color="accent">
+        PLACE BID {{ (product?.price + 5) | currency:'USD':true:'.0' }}
+      </button>
+    </div>
+  </div>
+</div>

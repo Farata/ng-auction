@@ -1,3 +1,2 @@
-<p>
-  product works!
-</p>
+<nga-product-detail *ngIf="product$ | async as product"
+                    [product]="product"></nga-product-detail>
