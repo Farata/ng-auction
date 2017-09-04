@@ -1,30 +1,43 @@
-<md-toolbar class="toolbar">
-  <button class="toolbar__icon-button" md-icon-button>
-    <md-icon>menu</md-icon>
-  </button>
+<md-sidenav-container>
+  <md-sidenav #sidenav
+              mode="side"
+              position="end">
+    <nga-search></nga-search>
+  </md-sidenav>
 
-  <div class="toolbar__logo-title-group"
-       fxLayout
-       fxLayoutAlign="center center">
-    <a routerLink="/" fxLayout>
-      <img class="toolbar__logo"
-            src="/assets/logo.svg"
-            alt="NgAuction Logo">
-    </a>
-    <a class="toolbar__title" routerLink="/">NgAuction</a>
-  </div>
+  <md-toolbar class="toolbar">
+    <button class="toolbar__icon-button"
+            md-icon-button>
+      <md-icon>menu</md-icon>
+    </button>
 
-  <div fxFlex></div>
+    <div class="toolbar__logo-title-group"
+         fxLayout
+         fxLayoutAlign="center center">
+      <a routerLink="/"
+         fxLayout>
+        <img class="toolbar__logo"
+             src="/assets/logo.svg"
+             alt="NgAuction Logo">
+      </a>
+      <a class="toolbar__title"
+         routerLink="/">NgAuction</a>
+    </div>
 
-  <button md-icon-button
-          class="toolbar__icon-button
-                 toolbar__shopping-cart-button">
-    <md-icon>shopping_cart</md-icon>
-  </button>
+    <div fxFlex></div>
 
-  <button class="toolbar__icon-button" md-icon-button>
-    <md-icon>search</md-icon>
-  </button>
-</md-toolbar>
+    <button md-icon-button
+            class="toolbar__icon-button
+                   toolbar__shopping-cart-button">
+      <md-icon>shopping_cart</md-icon>
+    </button>
 
-<router-outlet></router-outlet>
+    <button md-icon-button
+            class="toolbar__icon-button"
+            (click)="sidenav.toggle()">
+      <md-icon>search</md-icon>
+    </button>
+  </md-toolbar>
+
+  <router-outlet></router-outlet>
+</md-sidenav-container>

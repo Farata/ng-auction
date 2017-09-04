@@ -1,8 +1,16 @@
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+
 import { Component } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
-import { Product, ProductService } from '../shared/services';
+import {
+  Product,
+  ProductService,
+  SearchService,
+  SearchParams
+} from '../shared/services';
 
 @Component({
   selector: 'nga-home',
@@ -22,14 +30,24 @@ export class HomeComponent {
 
   constructor(
     private media: ObservableMedia,
-    private productService: ProductService
+    private productService: ProductService,
+    private searchService: SearchService
   ) {
-    this.products$ = this.productService.getAll();
+    this.products$ = this.productService.getAll()
+      .combineLatest(this.searchService.params)
+      .debounceTime(200)
+      .map(([products, params]) => this.filterProducts(products, params));
 
     // If the initial screen size is xs ObservableMedia doesn't emit an event
     // and grid-list rendering fails. Once the following issue is closed, this
     // comment can be removed: https://github.com/angular/flex-layout/issues/388
     this.columns$ = this.media.asObservable()
       .map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias));
+  }
+
+  private filterProducts(products: Product[], params: SearchParams): Product[] {
+    return params.title
+      ? products.filter(p => p.title.toLowerCase().includes((<string>params.title).toLowerCase()))
+      : products;
   }
 }

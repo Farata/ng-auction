@@ -1,0 +1,18 @@
+@import '../../../../styles/theme';
+
+:host {
+  display: block;
+}
+
+md-form-field {
+  font-size: 16px;
+  min-width: 250px;
+  width: 100%;
+}
+
+.title {
+  color: mat-color($nga-foreground, text);
+  font-size: mat-font-size($nga-typography, headline);
+  font-weight: mat-font-weight($nga-typography, headline);
+  margin: 0 0 16px;
+}

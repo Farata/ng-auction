@@ -5,6 +5,15 @@
   height: 100%;
 }
 
+md-sidenav-container {
+  height: 100%;
+}
+
+md-sidenav {
+  border-left: solid 1px mat-color($nga-foreground, divider);
+  padding: 24px;
+}
+
 .toolbar {
   background-color: mat-color($nga-background, card);
   position: relative;
