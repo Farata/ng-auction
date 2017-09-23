@@ -1,14 +1,14 @@
-<md-sidenav-container>
-  <md-sidenav #sidenav
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
               mode="side"
               position="end">
     <nga-search></nga-search>
-  </md-sidenav>
+  </mat-sidenav>
 
-  <md-toolbar class="toolbar">
+  <mat-toolbar class="toolbar">
     <button class="toolbar__icon-button"
-            md-icon-button>
-      <md-icon>menu</md-icon>
+            mat-icon-button>
+      <mat-icon>menu</mat-icon>
     </button>
 
     <div class="toolbar__logo-title-group"
@@ -26,18 +26,18 @@
 
     <div fxFlex></div>
 
-    <button md-icon-button
+    <button mat-icon-button
             class="toolbar__icon-button
                    toolbar__shopping-cart-button">
-      <md-icon>shopping_cart</md-icon>
+      <mat-icon>shopping_cart</mat-icon>
     </button>
 
-    <button md-icon-button
+    <button mat-icon-button
             class="toolbar__icon-button"
             (click)="sidenav.toggle()">
-      <md-icon>search</md-icon>
+      <mat-icon>search</mat-icon>
     </button>
-  </md-toolbar>
+  </mat-toolbar>
 
   <router-outlet></router-outlet>
-</md-sidenav-container>
+</mat-sidenav-container>
