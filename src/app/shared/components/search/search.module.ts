@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdFormFieldModule, MdInputModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { SearchComponent } from './search.component';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
-    MdFormFieldModule,
-    MdInputModule
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     SearchComponent

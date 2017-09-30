@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MdButtonModule,
-  MdIconModule,
-  MdSidenavModule,
-  MdToolbarModule
-} from '@angular/material';
+
+import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SHARED_SERVICES } from './shared/services';
 import { SearchModule } from './shared/components';
@@ -24,10 +24,10 @@ import { routes } from './app.routing';
     FlexLayoutModule,
     RouterModule.forRoot(routes),
 
-    MdButtonModule,
-    MdIconModule,
-    MdSidenavModule,
-    MdToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
 
     SearchModule
   ],
@@ -38,6 +38,7 @@ import { routes } from './app.routing';
     AppComponent
   ],
   providers: [
+    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true },
     ...SHARED_SERVICES
   ]
 })
