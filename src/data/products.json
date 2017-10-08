@@ -10,7 +10,7 @@
     "id": 2,
     "description" : "Be an optimist. Carry Sunglasses with you at all times. All Tints and Shades products come with polarized lenses and super duper UV protection so you can look at the sun for however long you want. Sunglasses make you look cool, wear them.",
     "featured" : true,
-    "imageUrl" : "data/img/apples.png",
+    "imageUrl" : "data/img/sunnies.png",
     "price" : 70,
     "title" : "Sunglasses"
   },
