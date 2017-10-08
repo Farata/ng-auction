@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Product, ProductService } from '../shared/services';
@@ -11,7 +11,7 @@ import { Product, ProductService } from '../shared/services';
   styleUrls: [ './product.component.scss' ],
   templateUrl: './product.component.html'
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit{
   product$: Observable<Product>;
   suggestedProducts$: Observable<Product[]>;
 
@@ -24,6 +24,11 @@ export class ProductComponent {
       .filter(productId => !!productId)
       .switchMap(productId => this.productService.getById(productId));
 
+  }
+
+  ngOnInit() {
+
     this.suggestedProducts$ = this.productService.getAll();
   }
+
 }
