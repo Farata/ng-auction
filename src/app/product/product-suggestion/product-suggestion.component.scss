@@ -29,8 +29,8 @@
 .info__title {
   color: mat-color($nga-foreground, text);
   font-family: 'Abril Fatface', cursive;
-  font-size: mat-font-size($nga-typography, display-1);
-  font-weight: mat-font-weight($nga-typography, display-1);
-  line-height: mat-line-height($nga-typography, display-1);
+  font-size: mat-font-size($nga-typography, title);
+  font-weight: mat-font-weight($nga-typography, title);
+  line-height: mat-line-height($nga-typography, title);
   margin: 0 0 24px;
 }
