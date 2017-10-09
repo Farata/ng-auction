@@ -22,7 +22,7 @@ import { routes } from './app.routing';
     BrowserAnimationsModule,
     HttpClientModule,
     FlexLayoutModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {enableTracing: true}),
 
     MatButtonModule,
     MatIconModule,
