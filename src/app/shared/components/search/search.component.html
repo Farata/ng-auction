@@ -1,5 +1,11 @@
 <h1 class="title">Search products</h1>
 
-<mat-form-field>
-  <input matInput type="text" placeholder="Title" [formControl]="title">
-</mat-form-field>
+<form class="form" #f="ngForm" (ngSubmit)="search(f.value)">
+  <mat-form-field class="form__field">
+    <input matInput type="text" placeholder="Title" name="title" ngModel>
+  </mat-form-field>
+
+  <button class="form__submit"
+          color="primary"
+          mat-raised-button>SEARCH</button>
+</form>

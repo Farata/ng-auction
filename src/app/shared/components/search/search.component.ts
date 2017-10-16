@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { SearchService } from '../../services';
 
 @Component({
@@ -8,11 +7,9 @@ import { SearchService } from '../../services';
   templateUrl: './search.component.html'
 })
 export class SearchComponent {
-  title: FormControl;
+  constructor(private searchService: SearchService) {}
 
-  constructor(searchService: SearchService) {
-    this.title = new FormControl();
-    this.title.valueChanges
-      .subscribe(title => searchService.params.next({ title }));
+  search(params: any): void {
+    this.searchService.params.next(params);
   }
 }

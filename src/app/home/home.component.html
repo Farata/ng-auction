@@ -1,3 +1,12 @@
+<!--
+  TODO: Consider MatTabNavBar as soon as following issues are resolved:
+    * https://github.com/angular/material2/issues/1967
+    * https://github.com/angular/material2/issues/2177
+-->
+<mat-tab-group class="tabs">
+  <mat-tab *ngFor="let c of categories$ | async" [label]="c | uppercase"></mat-tab>
+</mat-tab-group>
+
 <div class="grid-list-container">
   <mat-grid-list [cols]="columns$ | async" gutterSize="16">
     <mat-grid-tile class="tile" *ngFor="let product of products$ | async">
@@ -16,7 +25,7 @@
 
         <div class="tile__title"
              ngClass.xs="tile__title--xs"
-             ngClass.sm="tile__title--sm">{{ product.title }}</div>
+             ngClass.lg="tile__title--lg">{{ product.title }}</div>
       </a>
     </mat-grid-tile>
   </mat-grid-list>

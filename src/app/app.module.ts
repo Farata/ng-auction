@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -38,7 +37,6 @@ import { routes } from './app.routing';
     AppComponent
   ],
   providers: [
-    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true },
     ...SHARED_SERVICES
   ]
 })

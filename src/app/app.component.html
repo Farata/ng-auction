@@ -1,14 +1,13 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav
-              mode="side"
-              position="end">
+  <mat-sidenav #sidenav>
     <nga-search></nga-search>
   </mat-sidenav>
 
   <mat-toolbar class="toolbar">
-    <button class="toolbar__icon-button"
-            mat-icon-button>
-      <mat-icon>menu</mat-icon>
+    <button mat-icon-button
+            class="toolbar__icon-button"
+            (click)="sidenav.toggle()">
+      <mat-icon>search</mat-icon>
     </button>
 
     <div class="toolbar__logo-title-group"
@@ -30,12 +29,6 @@
             class="toolbar__icon-button
                    toolbar__shopping-cart-button">
       <mat-icon>shopping_cart</mat-icon>
-    </button>
-
-    <button mat-icon-button
-            class="toolbar__icon-button"
-            (click)="sidenav.toggle()">
-      <mat-icon>search</mat-icon>
     </button>
   </mat-toolbar>
 
