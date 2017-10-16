@@ -1,5 +1,6 @@
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -50,7 +51,8 @@ export class HomeComponent {
     // and grid-list rendering fails. Once the following issue is closed, this
     // comment can be removed: https://github.com/angular/flex-layout/issues/388
     this.columns$ = this.media.asObservable()
-      .map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias));
+      .map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias))
+      .startWith(3);
   }
 
   private getCategory(category: string): Observable<Product[]> {
