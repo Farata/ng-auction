@@ -1,11 +1,13 @@
-<!--
-  TODO: Consider MatTabNavBar as soon as following issues are resolved:
-    * https://github.com/angular/material2/issues/1967
-    * https://github.com/angular/material2/issues/2177
--->
-<mat-tab-group class="tabs">
-  <mat-tab *ngFor="let c of categories$ | async" [label]="c | uppercase"></mat-tab>
-</mat-tab-group>
+<nav class="tabs"
+     mat-tab-nav-bar>
+  <a mat-tab-link
+     *ngFor="let c of categories$ | async"
+     #rla="routerLinkActive" routerLinkActive
+     [active]="rla.isActive"
+     [routerLink]="['..', c]">
+    {{ c | uppercase }}
+  </a>
+</nav>
 
 <div class="grid-list-container">
   <mat-grid-list [cols]="columns$ | async" gutterSize="16">
