@@ -22,7 +22,7 @@ export class ProductService {
 
   getById(productId: number): Observable<Product> {
     return this.http.get<Product[]>('/data/products.json')
-      .map(products => products.find(p => p.id === productId));
+      .map(products => <Product>products.find(p => p.id === productId));
   }
 
   getByCategory(category: string): Observable<Product[]> {
@@ -32,7 +32,7 @@ export class ProductService {
 
   getAllCategories(): Observable<string[]> {
     return this.http.get<Product[]>('/data/products.json')
-      .map(products => products.reduce((all, product) => all.concat(product.categories), []))
+      .map(products => products.reduce((all, product) => all.concat(product.categories), new Array<string>()))
       .map(categories => Array.from(new Set(categories)));
   }
 }
