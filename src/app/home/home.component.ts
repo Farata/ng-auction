@@ -1,13 +1,15 @@
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { Observable } from 'rxjs/Observable';
+import {
+  combineLatest,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs/operators';
+
 import {
   Product,
   ProductService,
@@ -39,20 +41,24 @@ export class HomeComponent {
     private searchService: SearchService,
     private route: ActivatedRoute
   ) {
-    this.categories$ = this.productService.getAllCategories()
-      .map(categories => ['all', ...categories]);
+    this.categories$ = this.productService.getAllCategories().pipe(
+      map(categories => ['all', ...categories]));
 
     this.products$ = this.route.params
-      .switchMap(({ category }) => this.getCategory(category))
-      .combineLatest(this.searchService.params)
-      .map(([ products, params ]) => this.filterProducts(products, params));
+      .pipe(
+        switchMap(({ category }) => this.getCategory(category)),
+        combineLatest(this.searchService.params),
+        map(([ products, params ]) => this.filterProducts(products, params))
+      );
 
     // If the initial screen size is xs ObservableMedia doesn't emit an event
     // and grid-list rendering fails. Once the following issue is closed, this
     // comment can be removed: https://github.com/angular/flex-layout/issues/388
     this.columns$ = this.media.asObservable()
-      .map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias))
-      .startWith(3);
+      .pipe(
+        map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias)),
+        startWith(3)
+      );
   }
 
   private getCategory(category: string): Observable<Product[]> {

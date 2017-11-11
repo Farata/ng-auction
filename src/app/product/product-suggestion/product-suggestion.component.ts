@@ -1,8 +1,7 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
 import { Component, Input } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from 'rxjs/Observable';
+import { map, startWith } from 'rxjs/operators';
 import { Product } from '../../shared/services';
 
 @Component({
@@ -26,7 +25,9 @@ export class ProductSuggestionComponent {
     // and grid-list rendering fails. Once the following issue is closed, this
     // comment can be removed: https://github.com/angular/flex-layout/issues/388
     this.columns$ = this.media.asObservable()
-      .map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias))
-      .startWith(3);
+      .pipe(
+        map(mc => <number>this.breakpointsToColumnsNumber.get(mc.mqAlias)),
+        startWith(3)
+      );
   }
 }
