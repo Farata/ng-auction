@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
-import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { Observable } from 'rxjs/Observable';
 import {
   combineLatest,
