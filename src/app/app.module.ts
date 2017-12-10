@@ -11,7 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SHARED_SERVICES } from './shared/services';
-import { SearchModule } from './shared/components';
+import { SearchFormModule } from './shared/components';
 import { AppComponent } from './app.component';
 import { routes } from './app.routing';
 
@@ -28,7 +28,7 @@ import { routes } from './app.routing';
     MatSidenavModule,
     MatToolbarModule,
 
-    SearchModule
+    SearchFormModule
   ],
   declarations: [
     AppComponent

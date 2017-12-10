@@ -11,12 +11,12 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'nga-search',
-  styleUrls: [ './search.component.scss' ],
-  templateUrl: './search.component.html',
+  selector: 'nga-search-form',
+  styleUrls: [ './search-form.component.scss' ],
+  templateUrl: './search-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent {
+export class SearchFormComponent {
   @Output() search = new EventEmitter();
   readonly matcher = new ShowOnFormInvalidStateMatcher();
   readonly searchForm: FormGroup;
