@@ -1,6 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { SearchService } from './shared/services';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'nga-root',
@@ -8,12 +6,4 @@ import { SearchService } from './shared/services';
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements AfterViewInit {
-  @ViewChild(MatSidenav) matSidenav: MatSidenav;
-
-  constructor(private searchService: SearchService) {}
-
-  ngAfterViewInit() {
-    this.searchService.params.subscribe(() => this.matSidenav.close());
-  }
-}
+export class AppComponent {}

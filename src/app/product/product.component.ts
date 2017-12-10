@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { filter, first, map, skip, switchMap } from 'rxjs/operators';
-import { Product, ProductService, SearchService } from '../shared/services';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { Product, ProductService } from '../shared/services';
 
 @Component({
   selector: 'nga-product',
@@ -15,9 +15,7 @@ export class ProductComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
-    private searchService: SearchService,
-    private router: Router
+    private productService: ProductService
   ) {
     this.product$ = this.route.paramMap
       .pipe(
@@ -27,14 +25,5 @@ export class ProductComponent {
       );
 
     this.suggestedProducts$ = this.productService.getAll();
-
-    this.searchService.params
-      .pipe(
-        // Since we use BehaviorSubject for params, it emits the current value to every new subscriber.
-        // To avoid navigation to the home page every time the product page is opened, skip initial value.
-        skip(1),
-        first()
-      )
-      .subscribe(() => this.router.navigateByUrl('/'));
   }
 }

@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
-    <nga-search></nga-search>
+    <nga-search (search)="sidenav.close()"></nga-search>
   </mat-sidenav>
 
   <mat-toolbar class="toolbar">

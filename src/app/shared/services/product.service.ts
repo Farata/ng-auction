@@ -12,6 +12,12 @@ export interface Product {
   categories: string[];
 }
 
+export interface ProductSearchParams {
+  title?: string;
+  minPrice?: number;
+  maxPrice?: number;
+}
+
 @Injectable()
 export class ProductService {
   constructor(private http: HttpClient) {}
@@ -38,7 +44,20 @@ export class ProductService {
       );
   }
 
+  search(params: ProductSearchParams): Observable<Product[]> {
+    return this.http.get<Product[]>('/data/products.json').pipe(
+      map(products => this.filterProducts(products, params))
+    );
+  }
+
   private reduceCategories(products: Product[]): string[] {
     return products.reduce((all, product) => all.concat(product.categories), new Array<string>());
+  }
+
+  private filterProducts(products: Product[], params: ProductSearchParams): Product[] {
+    return products
+      .filter(p => params.title ? p.title.toLowerCase().includes((<string>params.title).toLowerCase()) : products)
+      .filter(p => params.minPrice ? p.price >= params.minPrice : products)
+      .filter(p => params.maxPrice ? p.price <= params.maxPrice : products);
   }
 }
