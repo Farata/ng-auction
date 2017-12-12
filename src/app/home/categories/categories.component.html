@@ -4,7 +4,7 @@
      *ngFor="let c of categories$ | async"
      #rla="routerLinkActive" routerLinkActive
      [active]="rla.isActive"
-     [routerLink]="['..', c]">
+     [routerLink]="['/categories', c]">
     {{ c | uppercase }}
   </a>
 </nav>

@@ -55,9 +55,17 @@ export class ProductService {
   }
 
   private filterProducts(products: Product[], params: ProductSearchParams): Product[] {
-    return products
-      .filter(p => params.title ? p.title.toLowerCase().includes((<string>params.title).toLowerCase()) : products)
-      .filter(p => params.minPrice ? p.price >= params.minPrice : products)
-      .filter(p => params.maxPrice ? p.price <= params.maxPrice : products);
+    return products.filter(p => {
+      if (params.title && !p.title.toLowerCase().includes(params.title.toLowerCase())) {
+        return false;
+      }
+      if (params.minPrice && p.price < params.minPrice) {
+        return false;
+      }
+      if (params.maxPrice && p.price > params.maxPrice) {
+        return false;
+      }
+      return true;
+    });
   }
 }
