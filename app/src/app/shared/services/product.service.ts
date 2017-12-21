@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { API_BASE_URL } from '../../app.tokens';
 
 export interface Product {
   id: number;
@@ -13,13 +14,50 @@ export interface Product {
 }
 
 export interface ProductSearchParams {
+  [key: string]: any; // To make compatible with HttpParams type.
   title?: string;
   minPrice?: number;
   maxPrice?: number;
 }
 
+export abstract class ProductService {
+  abstract getAll(): Observable<Product[]>;
+  abstract getById(productId: number): Observable<Product>;
+  abstract getByCategory(category: string): Observable<Product[]>;
+  abstract getAllCategories(): Observable<string[]>;
+  abstract search(params: ProductSearchParams): Observable<Product[]>;
+}
+
 @Injectable()
-export class ProductService {
+export class HttpProductService implements ProductService {
+  constructor(
+    @Inject(API_BASE_URL) private baseUrl: string,
+    private http: HttpClient
+  ) {}
+
+  getAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/products`);
+  }
+
+  getById(productId: number): Observable<Product> {
+    return this.http.get<Product>(`${this.baseUrl}/products/${productId}`);
+  }
+
+  getByCategory(category: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/categories/${category}`);
+  }
+
+  getAllCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/categories`);
+  }
+
+  search(params: ProductSearchParams): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/products`, { params });
+  }
+}
+
+@Injectable()
+export class _StaticProductService implements ProductService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Product[]> {

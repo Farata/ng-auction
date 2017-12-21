@@ -10,10 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { environment } from '../environments/environment';
 import { SHARED_SERVICES } from './shared/services';
 import { SearchFormModule } from './shared/components';
 import { AppComponent } from './app.component';
 import { routes } from './app.routing';
+import { API_BASE_URL } from './app.tokens';
 
 @NgModule({
   imports: [
@@ -37,7 +39,8 @@ import { routes } from './app.routing';
     AppComponent
   ],
   providers: [
-    ...SHARED_SERVICES
+    ...SHARED_SERVICES,
+    { provide: API_BASE_URL, useValue: environment.apiBaseUrl }
   ]
 })
 export class AppModule {}
