@@ -7,8 +7,8 @@ import {
   getProductsByCategory
 } from './db';
 
-const app = express();
-const api = express.Router();
+export const api = express.Router();
+
 api.use(cors());
 
 api.get('/products', async (req: express.Request, res: express.Response) => {
@@ -27,6 +27,3 @@ api.get('/categories', async (_, res: express.Response) => {
 api.get('/categories/:category', async (req: express.Request, res: express.Response) => {
   res.json(await getProductsByCategory(req.params.category));
 });
-
-app.use('/api', api);
-app.listen(9090);

@@ -1,5 +1,9 @@
 {
-  "compileOnSave": false,
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhiteSpace": false,
+    "strictInjectionParameters": true
+  },
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

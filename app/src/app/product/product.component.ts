@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -7,11 +7,12 @@ import { Product, ProductService } from '../shared/services';
 @Component({
   selector: 'nga-product',
   styleUrls: [ './product.component.scss' ],
-  templateUrl: './product.component.html'
+  templateUrl: './product.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent {
-  product$: Observable<Product>;
-  suggestedProducts$: Observable<Product[]>;
+  readonly product$: Observable<Product>;
+  readonly suggestedProducts$: Observable<Product[]>;
 
   constructor(
     private route: ActivatedRoute,

@@ -15,7 +15,7 @@ import { SHARED_SERVICES } from './shared/services';
 import { SearchFormModule } from './shared/components';
 import { AppComponent } from './app.component';
 import { routes } from './app.routing';
-import { API_BASE_URL } from './app.tokens';
+import { API_BASE_URL, WS_URL } from './app.tokens';
 
 @NgModule({
   imports: [
@@ -40,7 +40,8 @@ import { API_BASE_URL } from './app.tokens';
   ],
   providers: [
     ...SHARED_SERVICES,
-    { provide: API_BASE_URL, useValue: environment.apiBaseUrl }
+    { provide: API_BASE_URL, useValue: environment.apiBaseUrl },
+    { provide: WS_URL, useValue: environment.wsUrl }
   ]
 })
 export class AppModule {}
