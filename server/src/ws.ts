@@ -1,10 +1,6 @@
 import * as http from 'http';
 import * as ws from 'ws';
-import { parse as parseUrl } from 'url';
-import { parse as parseQueryString } from 'querystring';
 import { updateProductPrice } from './db';
-
-type UserId = string;
 
 interface BidMessage {
   productId: number;
@@ -17,65 +13,35 @@ export function createBidServer(httpServer: http.Server): BidServer {
 
 export class BidServer {
   private readonly wsServer: ws.Server;
-  private readonly productsToUsers = new Map<number, Set<UserId>>();
-  private readonly usersToConnections = new Map<UserId, Set<ws>>();
 
   constructor(server: http.Server) {
     this.wsServer = new ws.Server({ server });
-    this.wsServer.on('connection', this.onConnection.bind(this));
+    this.wsServer.on('connection', ws => this.onConnection(ws));
   }
 
-  private onConnection(ws: ws, req: http.IncomingMessage): void {
-    // Remember who is associated with current WS connection,
-    // so we can send bid updates to specific users.
-    const userId = this.parseUserId(req);
-    const connections = this.usersToConnections.get(userId) || new Set<ws>();
-    this.usersToConnections.set(userId, connections.add(ws));
-
+  private onConnection(ws: ws): void {
     // Subscribe to WebSocket events.
-    ws.on('message', this.onMessage.bind(this, userId));
-    ws.on('close', this.onClose.bind(this, userId, ws));
-    ws.on('error', this.onError.bind(this, userId, ws));
+    ws.on('message', message => this.onMessage(<string>message));
+    ws.on('error', error => this.onError(error));
+    ws.on('close', () => this.onClose());
 
-    console.log(`
-      Connection opened.
-      Open connections count: ${this.wsServer.clients.size} - ${connections.size}
-    `);
+    console.log(`Connections count: ${this.wsServer.clients.size}`);
   }
 
-  private onMessage(userId: UserId, message: string): void {
+  private onMessage(message: string): void {
     const bid: BidMessage = JSON.parse(message);
-    const subscribedUsers = this.productsToUsers.get(bid.productId) || new Set<UserId>();
-    this.productsToUsers.set(bid.productId, subscribedUsers.add(userId));
     updateProductPrice(bid.productId, bid.price);
 
     // Broadcast new price.
-    Array.from(subscribedUsers)
-      .map(userId => this.usersToConnections.get(userId) || new Set<ws>())
-      .reduce((allConnections: ws[], userConnections: Set<ws>) => {
-        return allConnections.concat(Array.from(userConnections));
-      }, [])
-      .forEach(ws => ws.send(JSON.stringify(bid)));
-
-    console.log(this.productsToUsers);
+    this.wsServer.clients.forEach(ws => ws.send(JSON.stringify(bid)));
+    console.log(`Bid ${bid.price} is placed on product ${bid.productId}`);
   }
 
-  private onClose(userId: UserId, ws: ws): void {
-    const connections = this.usersToConnections.get(userId) || new Set<ws>();
-    connections.delete(ws);
-
-    console.log(`Connection closed. Open connections count: ${this.wsServer.clients.size} - ${connections.size}`);
+  private onClose(): void {
+    console.log(`Connections count: ${this.wsServer.clients.size}`);
   }
 
-  private onError(userId: UserId, ws: ws, error: Error): void {
-    console.error(`WebSocket error. User ID: ${userId}. Error message: "${error.message}"`);
-    const connections = this.usersToConnections.get(userId) || new Set<ws>();
-    connections.delete(ws);
-  }
-
-  private parseUserId(req: http.IncomingMessage): UserId {
-    const url = parseUrl(req.url || '');
-    const params = parseQueryString(url.query || '');
-    return params.userId as string;
+  private onError(error: Error): void {
+    console.error(`WebSocket error: "${error.message}"`);
   }
 }
