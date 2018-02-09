@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
-import { Product, ProductService } from '../../shared/services';
+import { Product } from '../../shared/services';
+import { getProductData, State } from '../store';
+import { LoadCategories, LoadProducts, LoadProductsByCategory } from '../store/actions';
+import { getCategoryData } from '../store/reducers';
+
 
 @Component({
   selector: 'nga-categories',
@@ -11,24 +17,35 @@ import { Product, ProductService } from '../../shared/services';
   templateUrl: './categories.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnDestroy {
   readonly categories$: Observable<string[]>;
   readonly products$: Observable<Product[]>;
+  private readonly productsSubscription: Subscription;
 
   constructor(
-    private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<State>
   ) {
-    this.categories$ = this.productService.getAllCategories().pipe(
-      map(categories => ['all', ...categories]));
+    this.products$ = this.store.pipe(select(getProductData));
+    this.categories$ = this.store.pipe(
+      select(getCategoryData),
+      map(categories => [ 'all', ...categories ])
+    );
 
-    this.products$ = this.route.params.pipe(
-      switchMap(({ category }) => this.getCategory(category)));
+    this.productsSubscription = this.route.params.subscribe(
+      ({ category }) => this.getCategory(category)
+    );
+
+    this.store.dispatch(new LoadCategories());
   }
 
-  private getCategory(category: string): Observable<Product[]> {
+  ngOnDestroy(): void {
+    this.productsSubscription.unsubscribe();
+  }
+
+  private getCategory(category: string): void {
     return category.toLowerCase() === 'all'
-      ? this.productService.getAll()
-      : this.productService.getByCategory(category.toLowerCase());
+      ? this.store.dispatch(new LoadProducts())
+      : this.store.dispatch(new LoadProductsByCategory({ category: category.toLowerCase() }));
   }
 }

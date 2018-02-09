@@ -1,21 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Route, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Route, RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { SearchComponent } from './search/search.component';
+import { reducers } from './store';
+import { CategoryEffects, ProductEffects } from './store/effects';
+
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'categories' },
   { path: 'search', component: SearchComponent },
-  { path: 'categories',
+  {
+    path: 'categories',
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'all' },
-      { path: ':category', component: CategoriesComponent },
+      { path: ':category', component: CategoriesComponent }
     ]
   }
 ];
@@ -26,7 +32,10 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     FlexLayoutModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+
+    StoreModule.forFeature('home', reducers),
+    EffectsModule.forFeature([ CategoryEffects, ProductEffects ])
   ],
   declarations: [
     CategoriesComponent,
@@ -34,4 +43,5 @@ const routes: Route[] = [
     SearchComponent
   ]
 })
-export class HomeModule {}
+export class HomeModule {
+}
