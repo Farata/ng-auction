@@ -6,9 +6,9 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Product } from '../../shared/services';
-import { getProductData, State } from '../store';
+import { getProductsData, State } from '../store';
 import { LoadCategories, LoadProducts, LoadProductsByCategory } from '../store/actions';
-import { getCategoryData } from '../store/reducers';
+import { getCategoriesData } from '../store/reducers';
 
 
 @Component({
@@ -26,9 +26,9 @@ export class CategoriesComponent implements OnDestroy {
     private route: ActivatedRoute,
     private store: Store<State>
   ) {
-    this.products$ = this.store.pipe(select(getProductData));
+    this.products$ = this.store.pipe(select(getProductsData));
     this.categories$ = this.store.pipe(
-      select(getCategoryData),
+      select(getCategoriesData),
       map(categories => [ 'all', ...categories ])
     );
 

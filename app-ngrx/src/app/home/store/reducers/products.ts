@@ -1,5 +1,5 @@
 import { Product } from '../../../shared/services';
-import { ProductActions, ProductActionTypes } from '../actions';
+import { ProductsActions, ProductsActionTypes } from '../actions';
 
 
 export interface State {
@@ -13,9 +13,9 @@ const initialState: State = {
   loading: false
 };
 
-export function reducer(state = initialState, action: ProductActions): State {
+export function reducer(state = initialState, action: ProductsActions): State {
   switch (action.type) {
-    case ProductActionTypes.Load: {
+    case ProductsActionTypes.Load: {
       return {
         ...state,
         loading: true,
@@ -23,7 +23,7 @@ export function reducer(state = initialState, action: ProductActions): State {
       };
     }
 
-    case ProductActionTypes.LoadSuccess: {
+    case ProductsActionTypes.LoadSuccess: {
       return {
         ...state,
         data: action.payload.products,
@@ -32,7 +32,7 @@ export function reducer(state = initialState, action: ProductActions): State {
       };
     }
 
-    case ProductActionTypes.LoadFailure: {
+    case ProductsActionTypes.LoadFailure: {
       return {
         ...state,
         data: [],

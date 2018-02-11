@@ -1,19 +1,19 @@
 import { Action } from '@ngrx/store';
 
-export enum CategoryActionTypes {
-  Load = '[Category] Load',
-  LoadSuccess = '[Category] Load Success'
+export enum CategoriesActionTypes {
+  Load = '[Categories] Load',
+  LoadSuccess = '[Categories] Load Success'
 }
 
 export class LoadCategories implements Action {
-  readonly type = CategoryActionTypes.Load;
+  readonly type = CategoriesActionTypes.Load;
 }
 
 export class LoadCategoriesSuccess implements Action {
-  readonly type = CategoryActionTypes.LoadSuccess;
+  readonly type = CategoriesActionTypes.LoadSuccess;
   constructor(public readonly payload: { categories: string[] }) {}
 }
 
-export type CategoryActions
+export type CategoriesActions
   = LoadCategories
   | LoadCategoriesSuccess;

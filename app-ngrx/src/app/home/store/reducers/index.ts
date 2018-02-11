@@ -1,11 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '../../../store';
-import * as fromCategory from './category';
-import * as fromProduct from './product';
+import * as fromCategories from './categories';
+import * as fromProducts from './products';
 
 export interface HomeState {
-  category: fromCategory.State;
-  product: fromProduct.State;
+  categories: fromCategories.State;
+  products: fromProducts.State;
 }
 
 export interface State extends fromRoot.State {
@@ -13,8 +13,8 @@ export interface State extends fromRoot.State {
 }
 
 export const reducers = {
-  category: fromCategory.reducer,
-  product: fromProduct.reducer
+  categories: fromCategories.reducer,
+  products: fromProducts.reducer
 };
 
 /**
@@ -23,11 +23,10 @@ export const reducers = {
 
 export const getHomeState = createFeatureSelector<HomeState>('home');
 
-export const getProductState = createSelector(getHomeState, state => state.product);
-export const getProductData = createSelector(getProductState, fromProduct.getData);
-export const getProductDataLoading = createSelector(getProductState, fromProduct.getDataLoading);
-export const getProductDataLoadingError = createSelector(getProductState, fromProduct.getDataLoadingError);
+export const getProductsState = createSelector(getHomeState, state => state.products);
+export const getProductsData = createSelector(getProductsState, fromProducts.getData);
+export const getProductsDataLoading = createSelector(getProductsState, fromProducts.getDataLoading);
+export const getProductsDataLoadingError = createSelector(getProductsState, fromProducts.getDataLoadingError);
 
-export const getCategoryState = createSelector(getHomeState, state => state.category);
-export const getCategoryData = createSelector(getCategoryState, fromCategory.getData);
-
+export const getCategoriesState = createSelector(getHomeState, state => state.categories);
+export const getCategoriesData = createSelector(getCategoriesState, fromCategories.getData);

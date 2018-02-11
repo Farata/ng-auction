@@ -10,8 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { SearchComponent } from './search/search.component';
-import { reducers } from './store';
-import { CategoryEffects, ProductEffects } from './store/effects';
+import { CategoriesEffects, ProductsEffects, reducers } from './store';
 
 
 const routes: Route[] = [
@@ -35,7 +34,7 @@ const routes: Route[] = [
     MatTabsModule,
 
     StoreModule.forFeature('home', reducers),
-    EffectsModule.forFeature([ CategoryEffects, ProductEffects ])
+    EffectsModule.forFeature([ CategoriesEffects, ProductsEffects ])
   ],
   declarations: [
     CategoriesComponent,

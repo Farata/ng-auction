@@ -1,4 +1,4 @@
-import { CategoryActions, CategoryActionTypes } from '../actions';
+import { CategoriesActions, CategoriesActionTypes } from '../actions';
 
 
 export interface State {
@@ -9,15 +9,9 @@ const initialState: State = {
   data: []
 };
 
-export function reducer(state = initialState, action: CategoryActions): State {
+export function reducer(state = initialState, action: CategoriesActions): State {
   switch (action.type) {
-    case CategoryActionTypes.Load: {
-      return {
-        ...state
-      };
-    }
-
-    case CategoryActionTypes.LoadSuccess: {
+    case CategoriesActionTypes.LoadSuccess: {
       return {
         ...state,
         data: action.payload.categories

@@ -6,15 +6,15 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ProductService } from '../../../shared/services';
-import { CategoryActionTypes, LoadCategoriesSuccess } from '../actions';
+import { CategoriesActionTypes, LoadCategoriesSuccess } from '../actions';
 
 
 @Injectable()
-export class CategoryEffects {
+export class CategoriesEffects {
   @Effect()
   loadCategories$: Observable<Action> = this.actions$
     .pipe(
-      ofType(CategoryActionTypes.Load),
+      ofType(CategoriesActionTypes.Load),
       switchMap(() => this.productService.getAllCategories()),
       map(categories => new LoadCategoriesSuccess({ categories })),
       catchError(error => {

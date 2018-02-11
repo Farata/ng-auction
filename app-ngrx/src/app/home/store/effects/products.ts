@@ -10,17 +10,17 @@ import {
   LoadProductsByCategory,
   LoadProductsFailure,
   LoadProductsSuccess,
-  ProductActionTypes,
+  ProductsActionTypes,
   SearchProducts
 } from '../actions';
 
 
 @Injectable()
-export class ProductEffects {
+export class ProductsEffects {
   @Effect()
   loadProducts$: Observable<Action> = this.actions$
     .pipe(
-      ofType(ProductActionTypes.Load),
+      ofType(ProductsActionTypes.Load),
       switchMap(() => this.productService.getAll()),
       handleLoadedProducts()
     );
@@ -28,7 +28,7 @@ export class ProductEffects {
   @Effect()
   loadByCategory$: Observable<Action> = this.actions$
     .pipe(
-      ofType<LoadProductsByCategory>(ProductActionTypes.LoadProductsByCategory),
+      ofType<LoadProductsByCategory>(ProductsActionTypes.LoadProductsByCategory),
       map(action => action.payload.category),
       switchMap(category => this.productService.getByCategory(category)),
       handleLoadedProducts()
@@ -37,7 +37,7 @@ export class ProductEffects {
   @Effect()
   searchProducts: Observable<Action> = this.actions$
     .pipe(
-      ofType(ProductActionTypes.Search),
+      ofType(ProductsActionTypes.Search),
       map((action: SearchProducts) => action.payload.params),
       switchMap(params => this.productService.search(params)),
       handleLoadedProducts()

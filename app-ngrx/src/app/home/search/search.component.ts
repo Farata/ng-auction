@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Product } from '../../shared/services';
 import { State } from '../store';
 import { SearchProducts } from '../store/actions';
-import { getProductData } from '../store/reducers';
+import { getProductsData } from '../store/reducers';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class SearchComponent implements OnDestroy {
     private route: ActivatedRoute,
     private store: Store<State>
   ) {
-    this.products$ = this.store.pipe(select(getProductData));
+    this.products$ = this.store.pipe(select(getProductsData));
     this.paramsSubscription = this.route.queryParams.subscribe(
       params => this.store.dispatch(new SearchProducts({ params }))
     );
