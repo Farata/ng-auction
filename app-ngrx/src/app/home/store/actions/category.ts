@@ -9,7 +9,6 @@ export class LoadCategories implements Action {
   readonly type = CategoryActionTypes.Load;
 }
 
-
 export class LoadCategoriesSuccess implements Action {
   readonly type = CategoryActionTypes.LoadSuccess;
   constructor(public readonly payload: { categories: string[] }) {}

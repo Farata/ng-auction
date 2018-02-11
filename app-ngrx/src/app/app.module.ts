@@ -1,25 +1,26 @@
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment';
-import { SHARED_SERVICES } from './shared/services';
-import { SearchFormModule } from './shared/components';
 import { AppComponent } from './app.component';
 import { routes } from './app.routing';
 import { API_BASE_URL, WS_URL } from './app.tokens';
+import { SearchFormModule } from './shared/components';
+import { SHARED_SERVICES } from './shared/services';
+import { reducers } from './store';
+import { SearchEffects } from './store/effects';
+
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { API_BASE_URL, WS_URL } from './app.tokens';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers),
 
     /**
      * Store devtools instrument the store retaining past versions of state
@@ -50,7 +51,7 @@ import { API_BASE_URL, WS_URL } from './app.tokens';
      */
     StoreDevtoolsModule.instrument({
       name: 'NgAuction DevTools',
-      logOnly: environment.production,
+      logOnly: environment.production
     }),
 
     /**
@@ -60,7 +61,7 @@ import { API_BASE_URL, WS_URL } from './app.tokens';
      *
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ SearchEffects ]),
 
     MatButtonModule,
     MatIconModule,
@@ -81,4 +82,5 @@ import { API_BASE_URL, WS_URL } from './app.tokens';
     { provide: WS_URL, useValue: environment.wsUrl }
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

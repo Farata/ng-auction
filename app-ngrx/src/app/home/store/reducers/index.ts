@@ -2,12 +2,10 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '../../../store';
 import * as fromCategory from './category';
 import * as fromProduct from './product';
-// import * as fromSearch from './search';
 
 export interface HomeState {
   category: fromCategory.State;
   product: fromProduct.State;
-  // search: fromSearch.State;
 }
 
 export interface State extends fromRoot.State {
@@ -16,8 +14,7 @@ export interface State extends fromRoot.State {
 
 export const reducers = {
   category: fromCategory.reducer,
-  product: fromProduct.reducer,
-  // search: fromSearch.reducer
+  product: fromProduct.reducer
 };
 
 /**

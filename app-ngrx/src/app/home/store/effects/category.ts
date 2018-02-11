@@ -6,7 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ProductService } from '../../../shared/services';
-import { CategoryActionTypes, LoadCategoriesFailure, LoadCategoriesSuccess } from '../actions';
+import { CategoryActionTypes, LoadCategoriesSuccess } from '../actions';
 
 
 @Injectable()
@@ -17,7 +17,13 @@ export class CategoryEffects {
       ofType(CategoryActionTypes.Load),
       switchMap(() => this.productService.getAllCategories()),
       map(categories => new LoadCategoriesSuccess({ categories })),
-      catchError(error => of(new LoadCategoriesFailure({ error })))
+      catchError(error => {
+        // In case of an error there is not much we can do. So we just
+        // emit a success action with an empty array. The ALL category
+        // is always present, so users will be able to see the products.
+        console.error(`Error while loading categories: ${error}`);
+        return of(new LoadCategoriesSuccess({ categories: [] }));
+      })
     );
 
   constructor(
