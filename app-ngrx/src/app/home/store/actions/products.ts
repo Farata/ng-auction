@@ -5,8 +5,8 @@ import { Product } from '../../../shared/services';
 export enum ProductsActionTypes {
   Load = '[Products] Load All',
   Search = '[Products] Search',
-  LoadFailure = '[Products] Load Failure',
-  LoadSuccess = '[Products] Load Success',
+  LoadFailure = '[Products] Load All Failure',
+  LoadSuccess = '[Products] Load All Success',
   LoadProductsByCategory = '[Products] Load Products By Category',
 }
 
