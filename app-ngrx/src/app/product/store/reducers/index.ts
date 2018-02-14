@@ -1,9 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '../../../store';
+import * as fromBid from './bid';
 import * as fromProduct from './product';
+
 
 export interface ProductState {
   product: fromProduct.State;
+  bid: fromBid.State;
 }
 
 export interface State extends fromRoot.State {
@@ -11,7 +14,8 @@ export interface State extends fromRoot.State {
 }
 
 export const reducers = {
-  product: fromProduct.reducer
+  product: fromProduct.reducer,
+  bid: fromBid.reducer
 };
 
 /**
@@ -23,3 +27,5 @@ export const getProductState = createSelector(getProductPageState, state => stat
 export const getSelectedProduct = createSelector(getProductState, fromProduct.getSelected);
 export const getSuggestedProducts = createSelector(getProductState, fromProduct.getSuggested);
 
+export const getBidState = createSelector(getProductPageState, state => state.bid);
+export const getBids = createSelector(getBidState, fromBid.getBids);

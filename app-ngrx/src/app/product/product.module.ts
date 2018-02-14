@@ -10,7 +10,7 @@ import { ProductDetailComponent } from './product-detail';
 import { ProductSuggestionComponent } from './product-suggestion';
 
 import { ProductComponent } from './product.component';
-import { ProductEffects, reducers } from './store';
+import { BidEffects, ProductEffects, reducers } from './store';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { ProductEffects, reducers } from './store';
     ]),
 
     StoreModule.forFeature('productPage', reducers),
-    EffectsModule.forFeature([ ProductEffects ]),
+    EffectsModule.forFeature([ BidEffects, ProductEffects ]),
 
     MatButtonModule,
     MatGridListModule
