@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { ProductService } from '../../../shared/services';
 import { CategoriesActionTypes, LoadCategoriesSuccess } from '../actions';
@@ -15,7 +15,7 @@ export class CategoriesEffects {
   loadCategories$: Observable<Action> = this.actions$
     .pipe(
       ofType(CategoriesActionTypes.Load),
-      switchMap(() => this.productService.getAllCategories()),
+      mergeMap(() => this.productService.getAllCategories()),
       map(categories => new LoadCategoriesSuccess({ categories })),
       catchError(error => {
         // In case of an error there is not much we can do. So we just
