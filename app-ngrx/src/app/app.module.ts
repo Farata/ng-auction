@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -18,8 +19,7 @@ import { routes } from './app.routing';
 import { API_BASE_URL, WS_URL } from './app.tokens';
 import { SearchFormModule } from './shared/components';
 import { SHARED_SERVICES } from './shared/services';
-import { reducers } from './store';
-import { SearchEffects } from './store/effects';
+import { reducers, RouterEffects, SearchEffects } from './store';
 
 
 @NgModule({
@@ -37,7 +37,18 @@ import { SearchEffects } from './store/effects';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot({ ...reducers, router: routerReducer }),
+
+    /**
+     * @ngrx/router-store keeps router state up-to-date in the store.
+     */
+    StoreRouterConnectingModule.forRoot({
+      /**
+       * They stateKey defines the name of the state used by the router-store reducer.
+       * This matches the key defined in the map of reducers
+       */
+      stateKey: 'router'
+    }),
 
     /**
      * Store devtools instrument the store retaining past versions of state
@@ -61,7 +72,7 @@ import { SearchEffects } from './store/effects';
      *
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
-    EffectsModule.forRoot([ SearchEffects ]),
+    EffectsModule.forRoot([ RouterEffects, SearchEffects ]),
 
     MatButtonModule,
     MatIconModule,

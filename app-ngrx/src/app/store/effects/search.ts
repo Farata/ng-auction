@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
-import { Search, SearchActionTypes } from '../actions';
+import { Go, Search, SearchActionTypes } from '../actions';
 
 
 @Injectable()
 export class SearchEffects {
 
-  @Effect({ dispatch: false })
-  searchProducts$ = this.actions$
+  @Effect()
+  searchProducts$: Observable<Action> = this.actions$
     .pipe(
       ofType<Search>(SearchActionTypes.Search),
       map(action => action.payload.params),
-      tap(params => this.router.navigate([ '/search' ], { queryParams: params }))
+      map(params => new Go({ commands: [ '/search' ], extras: { queryParams: params }}))
     );
 
-  constructor(
-    private readonly actions$: Actions,
-    private readonly router: Router
-  ) {
-  }
+  constructor(private readonly actions$: Actions) {}
 }

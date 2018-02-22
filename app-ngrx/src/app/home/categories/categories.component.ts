@@ -6,9 +6,14 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Product } from '../../shared/services';
-import { getProductsData, State } from '../store';
-import { LoadCategories, LoadProducts, LoadProductsByCategory } from '../store/actions';
-import { getCategoriesData } from '../store/reducers';
+import {
+  getCategoriesData,
+  getProductsData,
+  LoadCategories,
+  LoadProducts,
+  LoadProductsByCategory,
+  State
+} from '../store';
 
 
 @Component({
