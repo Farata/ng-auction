@@ -8,7 +8,7 @@ export interface State {
   loadingError?: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   data: [],
   loading: false
 };
