@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
   OnChanges,
+  OnInit,
   SimpleChange
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -19,7 +20,7 @@ import { BidMessage, BidService, Product } from '../../shared/services';
   templateUrl: './product-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductDetailComponent implements OnChanges {
+export class ProductDetailComponent implements OnInit, OnChanges {
   private readonly productChange$ = new Subject<Product>();
   price$: Observable<number>;
   @Input() product: Product = <Product>{};
